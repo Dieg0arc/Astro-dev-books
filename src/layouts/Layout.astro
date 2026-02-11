@@ -1,23 +1,58 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import { ClientRouter } from "astro:transitions";
+// Import global properties and styles for the application
+import "../styles/global.css";
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+// Interface for the component props
+// Define the properties that this component expects to receive
+interface Props {
+  title: string; // The title of the page, mandatory string
+}
+
+// Destructure 'title' from Astro.props
+// This extracts the title passed when using the <Layout> component
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<!-- Define the document language as English -->
+<html lang="es">
+  <head>
+    <!-- Standard character encoding -->
+    <meta charset="UTF-8" />
+
+    <!-- Viewport configuration for responsive design on mobile devices -->
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Link to the favicon (browser tab icon) -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Dynamic title tag using the 'title' prop passed to the layout -->
+    <title>{title}</title>
+
+    <ClientRouter fallback="none" />
+  </head>
+
+  <!-- 
+    Body Element Configuration:
+    - class="min-h-screen": Sets minimum height to 100vh derived from user viewport, allowing scrolling if content overflows.
+    - class="bg-black": Sets the background color of the entire page to black.
+    - class="text-white": Sets the default text color to white.
+    - class="p-4": Adds small padding (1rem) on all sides for mobile devices.
+    - class="md:p-20": Increases padding (5rem) on medium screens and larger for better aesthetics.
+  -->
+  <body class="min-h-screen bg-black text-white p-4 md:p-20">
+    <!-- 
+      Main Content Container:
+      - class="container": Tailwind's container class to set a max-width at various breakpoints.
+      - class="mx-auto": Centers the container horizontally within the body.
+    -->
+    <div class="container mx-auto">
+      <!-- 
+        Slot Element:
+        This is where the content of the pages using <Layout> will be injected.
+      -->
+      <slot />
+    </div>
+  </body></html
+>

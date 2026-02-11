@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* View Transitions - Solo animar imágenes y títulos, nada más */
+
+/* Desactivar animación en el root (todo el contenido) */
+::view-transition-old(root),
+::view-transition-new(root) {
+animation: none;
+}
+
+/* Las imágenes y títulos con view-transition-name se animarán automáticamente */
